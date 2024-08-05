@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, Request, BackgroundTasks
+from fastapi import APIRouter, Depends, status, Request, BackgroundTasks, Query
 from typing import List
 import logging
 from src.schema.messages import Message, Response
@@ -18,7 +18,6 @@ async def clear_redis():
     redis_service: RedisService = get_redis_service()
     await redis_service.erase_all()
     
-
 
 
 @router.get(

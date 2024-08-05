@@ -19,9 +19,7 @@ async def help_handler(message: Message):
 @router.message(Command('start'))
 async def command_start_handler(message: Message) -> None:
     await message.answer(f'''Привет, {html.bold(message.from_user.full_name)}. 
-Это тестовое задание, выполненное {html.bold('Максимом Кривоносовым')}. 
-Наберите /help для большей информации. Вы можете создать сообщение
-или получить список всех сообщений.''')
+Это тестовое задание, выполненное {html.bold('Максимом Кривоносовым')}. Наберите /help для получения большей информации.''')
     
 @router.message(Command('get_all_messages'))
 async def get_all_messages_handler(message: Message):

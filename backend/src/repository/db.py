@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from src.schema.messages import Message
 from src.common.error import InternalError
 
@@ -28,7 +28,7 @@ class AbstractInterface(ABC):
 class MongoInterface(AbstractInterface):
     def __init__(self, conn_client: AsyncIOMotorClient) -> None:
         self.conn = conn_client
-        self.messages = self.conn['messages']
+        self.messages: AsyncIOMotorCollection = self.conn['messages']
     
     async def fetch_all(self):
         messages = []
