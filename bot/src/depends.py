@@ -1,6 +1,6 @@
 import aiohttp
-from service import ServerConnectionService
-from config import Config
+from src.service import ServerConnectionService
+from src.config import Config
 
 
 session: aiohttp.ClientSession = None  
@@ -10,15 +10,11 @@ service: ServerConnectionService = None
 
 async def init_session():
     global session
-    print ('------------------------')
-    print('initializating session')
     session = aiohttp.ClientSession(base_url=Config.API_URL, raise_for_status=True)
 
 
 async def init_service():
     global service
-    print ('------------------------')
-    print('initializating service')
     service = ServerConnectionService(get_session())
 
 

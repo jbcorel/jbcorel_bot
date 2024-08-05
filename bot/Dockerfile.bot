@@ -11,4 +11,4 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     
 COPY . .
 
-CMD python3.12 -m main
+CMD python3.12 -m src.main

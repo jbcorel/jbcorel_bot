@@ -1,8 +1,8 @@
 from aiogram import Dispatcher, html, Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from kb import KB
-from depends import get_service
+from src.kb import KB
+from src.depends import get_service
 
 
 router = Router()
@@ -10,7 +10,11 @@ router = Router()
 @router.message(Command('help'))
 async def help_handler(message: Message):
     await message.answer("Вы можете создать сообщение или получить список всех сообщений.")
-    await message.answer("Список доступных команд: ", reply_markup=KB.keyboard_start)
+    await message.answer(
+"""Список доступных команд:
+1./create_message - Введите эту команду и сообщение следом за ней для создания сообщения.\n
+2. /get_all_messages - Возвращает список всех сообщений в сортированном порядке.""", reply_markup=KB.keyboard_start)
+    
 
 @router.message(Command('start'))
 async def command_start_handler(message: Message) -> None:
