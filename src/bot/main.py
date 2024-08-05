@@ -5,9 +5,9 @@ from aiohttp import ClientSession
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 import asyncio
-from src.bot.handlers import router as h_router
-from src.bot.config import Config
-from src.bot.depends import init_session, close_session, init_service
+from handlers import router as h_router
+from config import Config
+from depends import init_session, close_session, init_service
 
 dp = Dispatcher()
 

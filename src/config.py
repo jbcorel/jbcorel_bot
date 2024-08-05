@@ -1,29 +1,29 @@
 import os
 import logging
-from dotenv import load_dotenv
-import logging
 from src.common.error import InternalError
 
 logging.basicConfig(level=logging.INFO)
 
-load_dotenv('.../.env')
 
 
 class Config:
-
     mongo_settings = {
-        'db_name': 'tg_test',
-        'mongodb_url': 'mongodb://localhost:27017',
-        'max_db_conn_count': 15,
-        'min_db_conn_count': 7,
+        # 'db_name': 'tg_test',
+        # 'mongodb_url': 'mongodb://localhost:27017',
+        # 'max_db_conn_count': 15,
+        # 'min_db_conn_count': 7,
+        
+        'db_name': os.getenv('MONGO_DB'),
+        'mongodb_url': os.getenv('MONGO_URL'),
+        'max_db_conn_count': os.getenv('MAX_CONNECTIONS_COUNT'),
+        'min_db_conn_count': os.getenv('MIN_CONNECTIONS_COUNT'),
     }
     
     redis_settings = {
-        'host': 'localhost',
-        'port': 6379,
-        'db': 1,
+        'host': os.getenv('REDIS_HOST'),
+        'port': os.getenv('REDIS_PORT'),
+        'db': os.getenv('REDIS_DB'),
     }
-    
 
 
     @classmethod

@@ -1,9 +1,8 @@
 from aiogram import Dispatcher, html, Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from src.bot.kb import KB
-from src.bot import service
-from src.bot.depends import get_service
+from kb import KB
+from depends import get_service
 
 
 router = Router()

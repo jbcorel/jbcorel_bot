@@ -1,6 +1,6 @@
 import aiohttp
-from src.bot.service import ServerConnectionService
-from src.bot.config import Config
+from service import ServerConnectionService
+from config import Config
 
 
 session: aiohttp.ClientSession = None  

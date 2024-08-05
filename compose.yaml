@@ -1,18 +1,67 @@
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker Compose reference guide at
-# https://docs.docker.com/go/compose-spec-reference/
 
-# Here the instructions define your application as a service called "server".
-# This service is built from the Dockerfile in the current directory.
-# You can add other services your application may depend on here, such as a
-# database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
+
 services:
-  server:
+  app:
     build:
       context: .
+      dockerfile: Dockerfile.app
+    
+    container_name: fastapi
+
     ports:
       - 8000:8000
+    depends_on:
+      - mongo
+      - redis
+      - nginx 
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - MONGO_DB=tg_test
+      - MAX_CONNECTIONS_COUNT=15
+      - MIN_CONNECTIONS_COUNT=7
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=1
+
+  bot:
+    build:
+      context: src/bot
+      dockerfile: Dockerfile.bot
+    container_name: telegram_bot
+    depends_on:
+      - app
+      - nginx
+    environment:
+      - API_URL=http://nginx:80
+      - TG_API_TOKEN=7205215096:AAEAeUNpG65vQmsOwI8-UeyLJoYExa0JtT4
+    
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    
+
+
+
+
+
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
@@ -36,11 +85,7 @@ services:
 #       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
 #     expose:
 #       - 5432
-#     healthcheck:
-#       test: [ "CMD", "pg_isready" ]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
+#     
 # volumes:
 #   db-data:
 # secrets:
