@@ -2,9 +2,6 @@ import os
 import logging
 from src.common.error import InternalError
 
-logging.basicConfig(level=logging.INFO)
-
-
 
 class Config:
     mongo_settings = {

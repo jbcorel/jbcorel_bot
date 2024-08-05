@@ -1,4 +1,5 @@
 import logging
+import sys
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
@@ -7,7 +8,8 @@ from src.depends import connect_and_init_db, close_db_connect, connect_and_init_
 from src.common.error import BadRequest, UnprocessableError, InternalError
 from src.config import Config
 
-#setup logging here
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+
 
 
 app = FastAPI(openapi_prefix='/messages')
