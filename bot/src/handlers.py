@@ -1,6 +1,6 @@
 from aiogram import Dispatcher, html, Router, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from aiogram.types import Message
 from src.kb import KB
 from src.depends import get_service
 
@@ -12,16 +12,16 @@ async def help_handler(message: Message):
     await message.answer("Вы можете создать сообщение или получить список всех сообщений.")
     await message.answer(
 """Список доступных команд:
-1./create_message - Введите эту команду и сообщение следом за ней для создания сообщения.\n
-2. /get_all_messages - Возвращает список всех сообщений в сортированном порядке.""", reply_markup=KB.keyboard_start)
+1./create - Введите эту команду и сообщение следом за ней для создания сообщения.\n
+2. /get_all - Возвращает список всех сообщений в сортированном порядке.""", reply_markup=KB.keyboard_help)
     
 
 @router.message(Command('start'))
 async def command_start_handler(message: Message) -> None:
     await message.answer(f'''Привет, {html.bold(message.from_user.full_name)}. 
-Это тестовое задание, выполненное {html.bold('Максимом Кривоносовым')}. Наберите /help для получения большей информации.''')
+Это тестовое задание, выполненное {html.bold('Максимом Кривоносовым')}. Наберите /help для получения большей информации.''', reply_markup=KB.keyboard_start)
     
-@router.message(Command('get_all_messages'))
+@router.message(Command('get_all'))
 async def get_all_messages_handler(message: Message):
     service = get_service()
     
@@ -35,14 +35,14 @@ async def get_all_messages_handler(message: Message):
     
     
 
-@router.message(Command('create_message'))
+@router.message(Command('create'))
 async def create_message_handler(message: Message):
     service = get_service()
     
     try:
         rsp = await service.send_message_to_server(message)
     except ValueError:
-        await message.answer('Добавьте свое сообщение после /create_message, поле не может быть пустым.')
+        await message.answer('Добавьте свое сообщение после /create, поле не может быть пустым.')
         return
     
     

@@ -13,8 +13,8 @@ class ServerConnectionService:
         
     async def send_message_to_server(self, message: Message) -> dict:
         author = message.from_user.full_name
-        date = message.date
-        content = message.text[15:]
+        date = message.date 
+        content = message.text[7:]
         if not content:
             raise ValueError('Сообщение не может быть пустым')
         

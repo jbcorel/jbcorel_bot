@@ -5,23 +5,22 @@ class KB:
     
     all_commands = [[
         types.KeyboardButton(text='/help'),
-        types.KeyboardButton(text='/create_message'),
-        types.KeyboardButton(text='/get_all_messages'),
+        types.KeyboardButton(text='/create'),
+        types.KeyboardButton(text='/get_all'),
     ],]
     
-    essential = [[
-        types.KeyboardButton(text='Создать сообщение'),
-        types.KeyboardButton(text='Получить список сообщений')
+    help = [[
+        types.KeyboardButton(text='/help')
     ],]
     
-    
-    start = [[
-        types.KeyboardButton(text='/start'),
-    ],]
-    
-    keyboard_start = types.ReplyKeyboardMarkup(
+    keyboard_help = types.ReplyKeyboardMarkup(
         keyboard= all_commands,
         resize_keyboard=True,
         input_field_placeholder='Доступные команды'
     )
     
+    keyboard_start = types.ReplyKeyboardMarkup(
+        keyboard=help,
+        resize_keyboard=True,
+        input_field_placeholder='Help!!!'
+    )

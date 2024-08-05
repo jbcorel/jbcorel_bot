@@ -11,7 +11,6 @@ from src.depends import init_session, close_session, init_service
 
 dp = Dispatcher()
 
-
 @dp.startup()
 async def on_startup():
     await init_session()

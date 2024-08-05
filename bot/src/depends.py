@@ -1,4 +1,5 @@
 import aiohttp
+import logging
 from src.service import ServerConnectionService
 from src.config import Config
 
@@ -11,6 +12,7 @@ service: ServerConnectionService = None
 async def init_session():
     global session
     session = aiohttp.ClientSession(base_url=Config.API_URL, raise_for_status=True)
+    logging.info('Соединение с сервером установлено')
 
 
 async def init_service():
@@ -33,5 +35,4 @@ async def close_session():
     if session is not None:
         await session.close()
         session = None
-        print('-------------------')
-        print ('Session is closed now')
+        logging.info('aiohttp session closed')
